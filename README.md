@@ -294,6 +294,9 @@ src/predict.py          1m -> 12h forecast with uncertainty bands
 src/upload_to_github.py publish (token from $GITHUB_TOKEN only)
 notebooks/btc_price.ipynb   everything except the downloader, inlined
 scripts/run_multigpu.sh     complete launcher
+scripts/publish.py          normal incremental publish (always fast-forward)
+scripts/wipe_and_republish.py  deliberate nuke-and-replace (rewrites history)
+scripts/diagnose.py         explains ENOMEM / environment failures
 scripts/make_notebook.py    regenerates the notebook from src/
 scripts/exec_notebook_check.py  runs every notebook cell as a test
 ```
@@ -307,14 +310,34 @@ GPUs.
 
 ## Security
 
-`src/upload_to_github.py` reads `GITHUB_TOKEN` from the environment and passes
-it through `GIT_ASKPASS`, so it never lands in `.git/config`, the notebook, or
-any committed file.
+Every publish path reads `GITHUB_TOKEN` from the environment and passes it
+through `GIT_ASKPASS`, so it never lands in `.git/config`, the notebook, or any
+committed file.
 
 ```bash
 export GITHUB_TOKEN=github_pat_xxxx
-python3 src/upload_to_github.py --repo btc-price-predictor --mode both
+python3 scripts/publish.py -m "what changed"      # normal path
 ```
+
+### Publishing: use `scripts/publish.py`
+
+`scripts/publish.py` fetches the remote, points `HEAD` at `origin/main` with
+`git reset --mixed` (which leaves the working tree untouched) and commits on
+top. The push is always a **fast-forward**, so anyone with the repo cloned just
+runs `git pull` and gets it cleanly.
+
+`scripts/wipe_and_republish.py` is the opposite: it force-pushes a fresh orphan
+root commit, discarding all history. It exists for a deliberate
+"delete everything and start over", and it will **break every existing clone** -
+a subsequent `git pull` fails with *refusing to merge unrelated histories*, and
+any open GitHub web-editor tab will report an unresolved conflict against the
+rewritten file. If that happens, resync the clone with:
+
+```bash
+git fetch origin && git reset --hard origin/main
+```
+
+Prefer `publish.py` unless you specifically want history erased.
 
 Never paste a token into a notebook cell — the value is saved inside the
 `.ipynb` and travels with every copy. If a token has ever appeared in a chat, a
