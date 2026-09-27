@@ -1,0 +1,57 @@
+{
+  "gpu_count": 0,
+  "gpus": [],
+  "nvlink_available": false,
+  "nvlink_active_links": 0,
+  "nvlink_pairs": [],
+  "nvlink_fully_connected": false,
+  "nvlink_bandwidth_gbs": 0.0,
+  "p2p_matrix": [],
+  "topology_matrix": "",
+  "driver_version": "",
+  "cuda_version": "",
+  "mps_available": false,
+  "cpu_logical": 2,
+  "cpu_physical": 1,
+  "numa_nodes": 1,
+  "cpu_model": "Intel(R) Xeon(R) Processor @ 2.60GHz",
+  "cpu_flags": [
+    "avx2",
+    "avx512f",
+    "sha_ni",
+    "f16c"
+  ],
+  "total_ram_gb": 1.94,
+  "avail_ram_gb": 0.94,
+  "swap_gb": 0.0,
+  "disk_free_gb": 19.73,
+  "shm_total_mb": 1040.7,
+  "shm_free_mb": 1040.7,
+  "blockers": [],
+  "torch_version": "2.14.0+cpu",
+  "cuda_available": false,
+  "nccl_available": false,
+  "strategy": "cpu-islands",
+  "world_size": 1,
+  "plan": {
+    "gpu_islands": 0,
+    "islands_per_gpu": 0,
+    "cpu_islands": 1,
+    "total_islands": 1,
+    "threads_per_cpu_island": 1,
+    "threads_per_gpu_island": 1,
+    "precision": "fp32",
+    "data_placement": "ram",
+    "pin_memory": false,
+    "gpu_mem_budget_mb": 0,
+    "cpu_mem_budget_mb": 64,
+    "use_tf32": false,
+    "dataset_mb": 138.7584,
+    "notes": [
+      "dataset (139 MB) held in system RAM"
+    ]
+  },
+  "notes": [
+    "No GPU -> parallel CPU islands."
+  ]
+}

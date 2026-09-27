@@ -1,0 +1,14 @@
+# Core
+numpy>=1.26
+pandas>=2.2
+pyarrow>=16.0          # parquet engine
+matplotlib>=3.8        # evolution-history plots in the notebook
+
+# PyTorch
+#   CPU-only:  pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   CUDA 12.4: pip install torch --index-url https://download.pytorch.org/whl/cu124
+torch>=2.4
+
+# Notebook
+jupyter>=1.0
+ipykernel>=6.29
